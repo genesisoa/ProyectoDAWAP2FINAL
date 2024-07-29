@@ -24,7 +24,7 @@ const CreacionHistoria = ({ open, onClose, onSubmit }) => {
             setError('');
             setContenido('');
             setVisibilidad('publico');
-            onClose();  // Cierra el diálogo al enviar la historia exitosamente
+            onClose();  
           } else {
             setError(result.message || 'Error al crear la historia.');
             setSuccess('');
