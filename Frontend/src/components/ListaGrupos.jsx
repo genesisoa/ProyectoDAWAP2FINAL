@@ -1,4 +1,4 @@
-// src/components/ListaGrupos.jsx
+
 import React, { useState } from 'react';
 import { List, ListItem, ListItemText, Button, Divider } from '@material-ui/core';
 import ChatGrupo from './ChatComponent';
