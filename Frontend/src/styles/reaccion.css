@@ -1,0 +1,42 @@
+.reaction-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .reaction-item {
+    cursor: pointer;
+    margin-right: 8px;
+    position: relative;
+    padding: 4px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .reaction-item.selected {
+    border: 2px solid blue;
+  }
+  
+  .reaction-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  .reaction-image:hover {
+    transform: scale(1.7); 
+  }
+  
+  .reaction-underline {
+    width: 24px;
+    height: 4px;
+    background-color: blue;
+    position: absolute;
+    bottom: -4px;
+    border-radius: 2px;
+  }
+  

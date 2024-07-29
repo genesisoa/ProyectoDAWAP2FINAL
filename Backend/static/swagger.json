@@ -1,0 +1,1738 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentación de Servicios Web de DAWA",
+    "version": "1.0.0",
+    "title": "Documentación de DAWA",
+    "termsOfService": "Leer www.ug.edu.com",
+    "contact": {
+      "email": "juan.cedenor@ug.edu.ec"
+    },
+    "license": {
+      "name": "Dawa UG",
+      "url": "none"
+    }
+  },
+  "tags": [
+    {
+      "name": "WS SecurityYY",
+      "description": "WS Security"
+    },
+    {
+      "name": "Reacciones",
+      "description": "Operaciones relacionadas con reacciones"
+    },
+    {
+      "name": "Amistades",
+      "description": "Operaciones relacionadas con amistades"
+    },
+    {
+      "name": "Usuarios",
+      "description": "Operaciones relacionadas con usuarios"
+    },
+    {
+      "name": "Carreras",
+      "description": "Operaciones relacionadas con carreras"
+    },
+    {
+      "name": "Publicaciones",
+      "description": "Operaciones relacionadas con publicaciones"
+    },
+    {
+      "name": "Comentarios Publicaciones",
+      "description": "Operaciones relacionadas con comentarios en publicaciones"
+    },
+    {
+      "name": "Grupos",
+      "description": "Operaciones relacionadas con grupos"
+    },
+    {
+      "name": "Historias",
+      "description": "Operaciones relacionadas con historias"
+    }
+  ],
+  "paths": {
+    "/usuarios/aceptados/{user_id}": {
+      "get": {
+        "tags": [
+          "Amistades"
+        ],
+        "summary": "Listar Amigos Aceptados",
+        "description": "Obtiene una lista de amigos aceptados para el usuario especificado por user_id.",
+        "operationId": "getAmigosAceptados",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID del usuario para el que se desean listar los amigos aceptados",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de amigos aceptados",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Amistad"
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraron amistades aceptadas para el usuario especificado.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/comentarios/{post_id}": {
+      "get": {
+        "tags": [
+          "Comentarios"
+        ],
+        "summary": "Listar Comentarios por Publicación",
+        "description": "Obtiene una lista de comentarios para la publicación especificada por post_id.",
+        "operationId": "getComentariosPorPublicacion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "post_id",
+            "description": "ID de la publicación para la que se desean listar los comentarios",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de comentarios de la publicación",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Comentario"
+                  }
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Comentarios obtenidos exitosamente"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontraron comentarios para la publicación especificada.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/grupo_miembro/agregar": {
+      "post": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Agregar Miembro a Grupo",
+        "description": "Agrega un nuevo miembro al grupo",
+        "operationId": "agregarMiembroGrupo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del miembro a agregar al grupo",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AgregarMiembroGrupoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Miembro agregado exitosamente al grupo",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/mensajes/agregar": {
+  "post": {
+    "tags": [
+      "Mensajes"
+    ],
+    "summary": "Agregar Mensaje al Grupo",
+    "description": "Agrega un nuevo mensaje a un grupo específico.",
+    "operationId": "agregarMensajeGrupo",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "body",
+        "name": "body",
+        "description": "Datos del mensaje a agregar al grupo",
+        "required": true,
+        "schema": {
+          "$ref": "#/definitions/AgregarMensajeRequest"
+        }
+      }
+    ],
+    "responses": {
+      "201": {
+        "description": "Mensaje agregado exitosamente al grupo",
+        "schema": {
+          "$ref": "#/definitions/Response"
+        }
+      },
+      "500": {
+        "description": "Error al agregar el mensaje",
+        "schema": {
+          "$ref": "#/definitions/ErrorResponse"
+        }
+      }
+    }
+  }
+},
+
+    "/usuario/actualizar": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Actualizar Usuario",
+        "description": "Actualiza los detalles de un usuario específico",
+        "operationId": "actualizarUsuario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del usuario a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ActualizarUsuarioRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usuario actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/amistad/update": {
+      "put": {
+        "tags": [
+          "Amistades"
+        ],
+        "summary": "Actualizar Estado de Amistad",
+        "description": "Actualiza el estado de una amistad existente",
+        "operationId": "updateAmistad",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la amistad a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateAmistadRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado de amistad actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/reaccion/actualizar": {
+      "put": {
+        "tags": [
+          "Reacciones"
+        ],
+        "summary": "Actualizar Reacción",
+        "description": "Actualiza el tipo de una reacción existente",
+        "operationId": "updateReaccion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la reacción a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateReaccionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Reacción actualizada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/reaccion/create": {
+      "post": {
+        "tags": [
+          "Reacciones"
+        ],
+        "summary": "Crear Reacción",
+        "description": "Crea una nueva reacción",
+        "operationId": "createReaccion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la reacción a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateReaccionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Reacción creada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/usuario/actualizarEstado": {
+      "put": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Actualizar Estado del Usuario es decir eliminar",
+        "description": "Actualiza el estado de un usuario específico a inactivo",
+        "operationId": "actualizarEstadoUsuario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "ID del usuario para actualizar su estado",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ActualizarEstadoUsuarioRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Estado del usuario actualizado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/amistad/create": {
+      "post": {
+        "tags": [
+          "Amistades"
+        ],
+        "summary": "Crear Amistad",
+        "description": "Crea una nueva solicitud de amistad",
+        "operationId": "createAmistad",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la solicitud de amistad a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateAmistadRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Solicitud de amistad creada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/security/login": {
+      "post": {
+        "tags": [
+          "WS Security"
+        ],
+        "summary": "Login de Usuario",
+        "description": "Login de Usuario",
+        "operationId": "loginUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginUserDef"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "400": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/NotFound"
+            }
+          }
+        }
+      }
+    },
+    "/comentario/create": {
+      "post": {
+        "tags": [
+          "Comentarios Publicaciones"
+        ],
+        "summary": "Crear Comentario",
+        "description": "Crea un nuevo comentario en una publicación",
+        "operationId": "createComentario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del comentario a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateComentarioRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comentario creado exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/usuarios/create": {
+      "post": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Crear Usuario",
+        "description": "Crear un nuevo usuario en el sistema",
+        "operationId": "createUser",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del usuario a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/carreras/List": {
+      "get": {
+        "tags": [
+          "Carreras"
+        ],
+        "summary": "Listar todas las carreras",
+        "description": "Obtiene la lista de todas las carreras disponibles en el sistema",
+        "operationId": "listarCarreras",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Carrera"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/publicacion/create": {
+      "post": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Crear Publicación",
+        "description": "Crea una nueva publicación en el sistema",
+        "operationId": "createPublicacion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la publicación a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePublicacionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/list/publicaciones": {
+      "get": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Listar Publicaciones",
+        "description": "Obtiene la lista de todas las publicaciones disponibles en el sistema",
+        "operationId": "listarPublicaciones",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Publicacion"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+     "/list/grupos": {
+    "get": {
+      "tags": [
+        "Grupos"
+      ],
+      "summary": "Listar Grupos",
+      "description": "Obtiene la lista de todos los Grupos disponibles en el sistema",
+      "operationId": "listarGrupos",
+      "produces": [
+        "application/json"
+      ],
+      "responses": {
+        "200": {
+          "description": "Operación exitosa",
+          "schema": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Grupo"
+            }
+          }
+        },
+        "500": {
+          "description": "Error",
+          "schema": {
+            "$ref": "#/definitions/ErrorResponse"
+          }
+        }
+      }
+    }
+  },
+    "/usuario/list": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Listar Usuarios",
+        "description": "Obtiene la lista de todos los usuarios registrados en el sistema",
+        "operationId": "listarUsuarios",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Usuario"
+              }
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/publicacion/update": {
+      "put": {
+        "tags": [
+          "Publicaciones"
+        ],
+        "summary": "Actualizar Publicación",
+        "description": "Actualiza el contenido de una publicación existente",
+        "operationId": "updatePublicacion",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la publicación a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePublicacionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicación actualizada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/comentario/update": {
+      "put": {
+        "tags": [
+          "Comentarios Publicaciones"
+        ],
+        "summary": "Actualizar Comentarios",
+        "description": "Actualiza el contenido de un Comentario existente",
+        "operationId": "updateComentario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del Comentario a actualizar",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateComentarioRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comentario actualizada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/usuario/id/{username}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener ID de usuario por nombre de usuario",
+        "description": "Obtiene el ID de un usuario por su nombre de usuario",
+        "operationId": "obtenerIdUsuario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Nombre de usuario para obtener el ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user_id": {
+                  "type": "integer",
+                  "description": "ID del usuario"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/grupo/create": {
+      "post": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Crear Grupo",
+        "description": "Crea un nuevo grupo en el sistema",
+        "operationId": "createGrupo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos del grupo a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateGrupoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/historia/create": {
+      "post": {
+        "tags": [
+          "Historias"
+        ],
+        "summary": "Crear Historia",
+        "description": "Crea una nueva historia en el sistema",
+        "operationId": "createHistoria",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la historia a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateHistoriaRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Historia creada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/comentario/{id}/delete": {
+      "delete": {
+        "tags": [
+          "Comentarios Publicaciones"
+        ],
+        "summary": "Eliminar Comentarios",
+        "description": "Elimina una Comentarios existente",
+        "operationId": "deleteComentario",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID de la publicación a eliminar",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Publicación eliminada exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "404": {
+            "description": "Publicación no encontrada",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error al eliminar la publicación",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+
+    "/reaccion/conteo": {
+      "get": {
+        "tags": [
+          "Reacciones"
+        ],
+        "summary": "Contar Reacciones",
+        "description": "Obtiene el conteo de reacciones por tipo para una publicación",
+        "operationId": "contarReacciones",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "id_publicacion",
+            "description": "ID de la publicación para contar las reacciones",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Conteo de reacciones obtenido exitosamente",
+            "schema": {
+              "$ref": "#/definitions/ReaccionesConteoResponse"
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+ "/api/usuarios/{user_id}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener el nombre de un usuario por su ID",
+        "description": "Este endpoint devuelve el nombre del usuario basado en su ID.",
+        "operationId": "getUsuarioNombreById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID del usuario para obtener su nombre",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nombre del usuario encontrado",
+            "schema": {
+              "$ref": "#/definitions/GetUsuarioNombreResponse"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+"/mensajes/{id_grupo}": {
+  "get": {
+    "tags": [
+      "Mensajes"
+    ],
+    "summary": "Obtener Mensajes del Grupo",
+    "description": "Obtiene la lista de mensajes para un grupo específico, excluyendo la fecha de creación",
+    "operationId": "obtenerMensajesGrupo",
+    "produces": [
+      "application/json"
+    ],
+    "parameters": [
+      {
+        "in": "path",
+        "name": "id_grupo",
+        "description": "ID del grupo para el que se desean obtener los mensajes",
+        "required": true,
+        "type": "integer"
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Mensajes obtenidos exitosamente",
+        "schema": {
+          "$ref": "#/definitions/Response"
+        }
+      },
+      "500": {
+        "description": "Error",
+        "schema": {
+          "$ref": "#/definitions/ErrorResponse"
+        }
+      }
+    }
+  }
+},
+"/mensajes/carrera/{user_id}": {
+      "get": {
+        "tags": [
+          "Mensajes"
+        ],
+        "summary": "Obtener Mensajes de la Carrera del Usuario",
+        "description": "Obtiene la lista de mensajes para la carrera del usuario especificado",
+        "operationId": "obtenerMensajesCarrera",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "description": "ID del usuario para el que se desean obtener los mensajes de la carrera",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Mensajes obtenidos exitosamente",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+
+    "/api/Litsausuarios/{user_id}": {
+      "get": {
+        "tags": [
+          "Usuarios"
+        ],
+        "summary": "Obtener Usuario por ID",
+        "description": "Obtiene los detalles de un usuario dado su ID",
+        "operationId": "getUsuarioById",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "ID del usuario a obtener",
+            "required": true,
+            "type": "integer",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "404": {
+            "description": "Usuario no encontrado",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Error en el servidor",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+  "/publicacion/grupo/create": {
+      "post": {
+        "tags": [
+          "Grupos"
+        ],
+        "summary": "Crear Publicación en Grupo",
+        "description": "Crea una nueva publicación en un grupo",
+        "operationId": "createPublicacionGrupo",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Datos de la publicación a crear",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreatePublicacionGrupoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "schema": {
+              "$ref": "#/definitions/Response"
+            }
+          },
+          "500": {
+            "description": "Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "definitions": {
+    "CreateReaccionRequest": {
+      "type": "object",
+      "properties": {
+        "id_publicacion": {
+          "type": "integer"
+        },
+        "id_usuario": {
+          "type": "integer"
+        },
+        "tipo": {
+          "type": "string"
+        }
+      }
+    },
+
+     "UpdatePublicacionRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "contenido": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "contenido"
+      ]
+    },
+     "UpdateComentarioRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "contenido": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "contenido"
+      ]
+    },
+    "LoginUserDef": {
+      "type": "object",
+      "properties": {
+        "login_user": {
+          "type": "string"
+        },
+        "login_password": {
+          "type": "string"
+        }
+      }
+    },
+    "Grupo": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "id_creador": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "DeletePublicacionRequest": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+    "DeleteComentarioRequest": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      }
+    },
+    "required": [
+      "id"
+    ]
+  },
+    "CreateComentarioRequest": {
+      "type": "object",
+      "properties": {
+        "id_publicacion": {
+          "type": "integer"
+        },
+        "id_usuario": {
+          "type": "integer"
+        },
+        "contenido": {
+          "type": "string"
+        }
+      }
+    },
+
+
+   "UserResponse": {
+    "type": "object",
+    "properties": {
+        "success": {
+            "type": "boolean",
+            "example": true
+        },
+        "message": {
+            "type": "string",
+            "example": "Usuario obtenido exitosamente"
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "nombre": {
+                    "type": "string",
+                    "example": "Juan"
+                },
+                "apellido": {
+                    "type": "string",
+                    "example": "Pérez"
+                },
+                "correo": {
+                    "type": "string",
+                    "example": "juan.perez@example.com"
+                },
+                "contrasena": {
+                    "type": "string",
+                    "example": "password123"
+                },
+                "usuario": {
+                    "type": "string",
+                    "example": "juanperez"
+                },
+                "biografia": {
+                    "type": "string",
+                    "example": "Desarrollador de software"
+                },
+                "id_carrera": {
+                    "type": "string",
+                    "example": "1"
+                },
+                "fecha_nacimiento": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "1990-01-01"
+                }
+            },
+            "required": [
+                "nombre",
+                "apellido",
+                "correo",
+                "contrasena",
+                "usuario",
+                "id_carrera",
+                "fecha_nacimiento"
+            ]
+        }
+    }
+},
+
+    "GetUsuarioNombreResponse": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string",
+          "example": "Juan Pérez"
+        }
+      }
+    },
+     "CreatePublicacionGrupoRequest": {
+      "type": "object",
+      "properties": {
+        "id_grupo": {
+          "type": "integer"
+        },
+        "id_usuario": {
+          "type": "integer"
+        },
+        "contenido": {
+          "type": "string"
+        }
+      }
+    },
+    "Comentario": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": 1
+        },
+        "id_publicacion": {
+          "type": "integer",
+          "example": 1
+        },
+        "id_usuario": {
+          "type": "integer",
+          "example": 2
+        },
+        "contenido": {
+          "type": "string",
+          "example": "Este es un comentario sobre la publicación."
+        }
+      }
+    },
+    "AgregarMensajeRequest": {
+  "type": "object",
+  "properties": {
+    "id_usuario": {
+      "type": "integer",
+      "example": 2
+    },
+    "contenido": {
+      "type": "string",
+      "example": "Este es un mensaje de prueba."
+    }
+  },
+  "required": ["id_usuario", "contenido"]
+},
+
+    "CreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "apellido": {
+          "type": "string"
+        },
+        "correo": {
+          "type": "string"
+        },
+        "contrasena": {
+          "type": "string"
+        },
+        "fecha_nacimiento": {
+          "type": "string",
+          "format": "date"
+        },
+        "biografia": {
+          "type": "string"
+        },
+        "foto_perfil": {
+          "type": "string"
+        },
+        "id_carrera": {
+          "type": "integer"
+        },
+        "usuario": {
+          "type": "string"
+        },
+        "user_state": {
+          "type": "boolean"
+        }
+      }
+    },
+    "CreateHistoriaRequest": {
+      "type": "object",
+      "properties": {
+        "id_usuario": {
+          "type": "integer"
+        },
+        "contenido": {
+          "type": "string"
+        },
+        "visibilidad": {
+          "type": "string",
+          "enum": ["publico", "privado"]
+        }
+      }
+    },
+    "AgregarMiembroGrupoRequest": {
+      "type": "object",
+      "properties": {
+        "id_grupo": {
+          "type": "integer"
+        },
+        "id_usuario": {
+          "type": "integer"
+        },
+        "rol": {
+          "type": "string"
+        }
+      }
+    },
+    "CreatePublicacionRequest": {
+      "type": "object",
+      "properties": {
+        "id_usuario": {
+          "type": "integer"
+        },
+        "contenido": {
+          "type": "string"
+        }
+      }
+    },
+    "Publicacion": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "contenido": {
+          "type": "string"
+        },
+        "fecha_creacion": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id_usuario": {
+          "type": "integer"
+        }
+      }
+    },
+     "Usuario": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer",
+        "format": "int64"
+      },
+      "nombre": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string",
+        "format": "email"
+      }
+    }
+  },
+    "UpdateReaccionRequest": {
+  "type": "object",
+  "properties": {
+    "id_reaccion": {
+      "type": "integer"
+    },
+    "tipo": {
+      "type": "string"
+    }
+  }
+},
+"UpdateAmistadRequest": {
+  "type": "object",
+  "properties": {
+    "id_usuario1": {
+      "type": "integer"
+    },
+    "id_usuario2": {
+      "type": "integer"
+    },
+    "estado": {
+      "type": "string",
+      "enum": ["pendiente", "aceptado", "rechazado"]
+    }
+  }
+},
+
+    "Response": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "default": false
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "CreateGrupoRequest": {
+      "type": "object",
+      "properties": {
+        "nombre": {
+          "type": "string"
+        },
+        "descripcion": {
+          "type": "string"
+        },
+        "id_creador": {
+          "type": "integer"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "default": false
+        },
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+   "ActualizarUsuarioRequest": {
+      "type": "object",
+      "properties": {
+        "id_usuario": {
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        },
+        "apellido": {
+          "type": "string"
+        },
+        "correo": {
+          "type": "string"
+        },
+        "contrasena": {
+          "type": "string"
+        },
+        "fecha_nacimiento": {
+          "type": "string",
+          "format": "date"
+        },
+        "biografia": {
+          "type": "string"
+        },
+        "usuario": {
+          "type": "string"
+        },
+        "id_carrera": {
+          "type": "integer"
+        }
+      }
+    },
+    "ActualizarEstadoUsuarioRequest": {
+      "type": "object",
+      "properties": {
+        "id_usuario": {
+          "type": "integer"
+        }
+      }
+    },
+     "CreateAmistadRequest": {
+      "type": "object",
+      "properties": {
+        "id_usuario1": {
+          "type": "integer"
+        },
+        "id_usuario2": {
+          "type": "integer"
+        }
+      }
+    },
+    "Carrera": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "nombre": {
+          "type": "string"
+        }
+      }
+  },
+   "NotFound": {
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string",
+        "example": "Resource not found"
+      }
+    }
+  }
+},
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  }
+}

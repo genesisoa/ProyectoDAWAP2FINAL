@@ -1,0 +1,36 @@
+.imagenInformacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 90%; 
+  margin-left: 10px;
+}
+
+.welcome-image {
+  max-width: 100%; 
+  height: auto; 
+  margin-right: 20px; 
+}
+
+.paper-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  padding: 16px;
+  width: 50%; 
+  max-width: 500px; 
+  margin: auto; 
+}
+.paper {
+  padding: 32px;
+  text-align: center;
+  width: 80%; }
+
+@media (max-width: 600px) {
+  .paper {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(255, 227, 227, 0.414);
+  background-image: url('./images/fondo.jpg'); /* Cambia esto por la ruta a tu imagen */
+  background-size: cover; /* Opcional: Ajusta la imagen para que cubra el área */
+  background-position: center; /* Opcional: Centra la imagen en el área */
+  background-repeat: no-repeat; /* Opcional: Evita que la imagen se repita */
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}

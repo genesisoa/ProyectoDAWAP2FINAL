@@ -1,0 +1,4 @@
+16:07:45 - ERR - ExecuteNonQuery - (UndefinedColumn('no existe la columna «fecha_creacion»\nLINE 4:                 RETURNING id, fecha_creacion\n                                      ^\n'),)
+16:17:47 - ERR - ExecuteNonQuery - (UndefinedColumn('no existe la columna «fecha_creacion»\nLINE 4:                 RETURNING id, fecha_creacion\n                                      ^\n'),)
+16:17:52 - ERR - ExecuteNonQuery - (UndefinedColumn('no existe la columna «fecha_creacion»\nLINE 4:                 RETURNING id, fecha_creacion\n                                      ^\n'),)
+16:18:36 - ERR - ExecuteNonQuery - (UndefinedColumn('no existe la columna «fecha_creacion»\nLINE 4:                 RETURNING id, fecha_creacion\n                                      ^\n'),)

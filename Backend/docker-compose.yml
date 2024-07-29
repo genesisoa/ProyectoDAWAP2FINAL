@@ -1,0 +1,31 @@
+version: '3.9'
+services:
+  backend:
+    container_name: dawa-p2proyectoback
+    build:
+      context: C:\Users\ordon\Documents\PROYECTOP2WEBAVANZADO\WSDAWA\ws_dawa
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '5000:5000'
+    volumes:
+      - C:\Users\ordon\Documents\PROYECTOP2WEBAVANZADO\WSDAWA\ws_dawa\src\utils\general\LOGS:/app/src/utils/general/LOGS
+    networks:
+      - dawa_networks
+
+  frontend:
+    container_name: dawa-p2proyectofront
+    build:
+      context: C:\ProyectosReact\2024CI\frontproyectop2
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - C:\Users\ordon\data\LOGS\dawa_ws:/app/src/utils/general/LOGS
+    networks:
+      - dawa_networks
+
+networks:
+  dawa_networks:
+    driver: bridge

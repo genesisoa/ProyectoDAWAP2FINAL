@@ -1,0 +1,4 @@
+12:17:13 - ERR - InsertUser - (AttributeError("type object 'DataBaseHandle' has no attribute 'executeSQL'"),)
+12:21:32 - ERR - ExecuteNonQuery - (UndefinedColumn('no existe la columna «contrasena» en la relación «usuarios»\nLINE 3:                     nombre, apellido, correo, contrasena, fe...\n                                                      ^\n'),)
+12:39:03 - ERR - getRecords - (UndefinedColumn("no existe la columna «ccontrasena»\nLINE 1: ...M proyectop2.usuarios WHERE usuario = 'lucas' AND ccontrasen...\n                                                             ^\nHINT:  Probablemente quiera hacer referencia a la columna «usuarios.contrasena».\n"),)
+16:24:25 - ERR - getRecords - (UndefinedTable('no existe la relación «proyectosp2.carreras»\nLINE 1: SELECT * FROM proyectosp2.carreras \n                      ^\n'),)

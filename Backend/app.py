@@ -1,0 +1,42 @@
+import os
+import sys
+
+from flask import Flask
+from flask_cors import CORS
+from flask_restful import Api
+from flask_swagger_ui import get_swaggerui_blueprint
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+
+from ws_dawa.src.api.Routes.routes import load_routes
+from ws_dawa.src.utils.general.logs import HandleLogs
+
+
+current_dir = os.path.dirname(__file__)
+app = Flask(__name__)
+CORS(app)
+api = Api(app)
+load_routes(api)
+sys.path.insert(0, os.path.join(current_dir, '..'))
+
+# Definiciones del Swagger
+SWAGGER_URL = '/ws/dawa/'
+API_URL = '/static/swagger.json'
+
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(SWAGGER_URL, API_URL,
+                                              config={
+                                                  'app_name': 'dawa-ws-restfulapi'
+                                              })
+
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+
+if __name__ == '__main__':
+    try:
+        HandleLogs.write_log("Servicio Iniciado")
+        port = int(os.environ.get('PORT', 1011))
+        app.run(debug=True, host='0.0.0.0', threaded=True)
+
+    except Exception as err:
+        HandleLogs.write_error(err)
+    finally:
+        HandleLogs.write_log("Servicio Finalizado")
