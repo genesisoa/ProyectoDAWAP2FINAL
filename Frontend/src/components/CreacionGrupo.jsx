@@ -1,4 +1,3 @@
-// src/components/GroupDialog.jsx
 
 import React, { useState } from 'react';
 import {
