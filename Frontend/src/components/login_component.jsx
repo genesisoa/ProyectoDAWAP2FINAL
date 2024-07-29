@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Paper, Typography, TextField, Button, Link } from '@material-ui/core';
-import fondoImagenInformacion from '../images/imagenInformacionInicio.jpg'; // Importa tu imagen aquí
+import fondoImagenInformacion from '../images/imagenInformacionInicio.jpg'; 
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
