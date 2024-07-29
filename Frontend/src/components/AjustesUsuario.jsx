@@ -105,9 +105,9 @@ const UserSettings = ({ open, onClose, userId }) => {
 
     const updatedData = { ...userData };
     if (!userData.nuevaContrasena) {
-      updatedData.contrasena = contrasenaExistente; // Use existing password if new password is not provided
+      updatedData.contrasena = contrasenaExistente; 
     } else {
-      updatedData.contrasena = userData.nuevaContrasena; // Use new password if provided
+      updatedData.contrasena = userData.nuevaContrasena; 
     }
 
     fetch(`http://192.168.100.4:5000/usuario/actualizar`, {
